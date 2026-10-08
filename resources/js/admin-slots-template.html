@@ -1,0 +1,21 @@
+<section class="admin-section slot-config-panel">
+    <div class="section-header">
+        <div><h3>Điều chỉnh khung giờ</h3><p>Thay đổi thời gian và sức chứa trực tiếp trên database.</p></div>
+        <div class="slot-add-form"><input type="time" v-model="newSlot.start_time"><span>–</span><input type="time" v-model="newSlot.end_time"><input type="number" min="1" max="50" v-model.number="newSlot.max_patients" title="Số bệnh nhân tối đa"><button class="button primary" @click="add">+ Thêm giờ</button></div>
+        <label class="slot-date-picker">Ngày khám<input type="date" v-model="selectedDate"></label>
+    </div>
+    <div v-if="loading" class="slot-config-empty">Đang tải khung giờ...</div>
+    <div v-else-if="!slots.length" class="slot-config-empty">Ngày này không có khung giờ trong lịch làm việc.</div>
+    <div v-else class="slot-config-list">
+        <div v-for="slot in slots" :key="slot.id" class="slot-config-row" :class="{disabled: !slot.is_enabled}">
+            <input type="time" v-model="slot.start_time">
+            <span>–</span>
+            <input type="time" v-model="slot.end_time">
+            <label>Số bệnh nhân tối đa<input type="number" min="1" max="50" v-model.number="slot.max_patients"></label>
+            <button class="toggle" :class="{on: slot.is_enabled}" @click="toggle(slot)" title="Bật/tắt"><span></span></button>
+            <button class="button primary slot-save" @click="save(slot)">Lưu</button>
+            <button class="slot-delete" @click="remove(slot)" title="Xóa giờ">×</button>
+        </div>
+    </div>
+    <div v-if="message" class="catalog-toast" :class="message.type">{{ message.text }}</div>
+</section>

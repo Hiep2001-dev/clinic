@@ -13,8 +13,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+        'guard' => env('AUTH_GUARD', 'clinic_admin'),
+        'passwords' => env('AUTH_PASSWORD_BROKER', 'clinic_admins'),
     ],
 
     /*
@@ -35,13 +35,9 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'clinic_admin' => [
             'driver' => 'session',
-            'provider' => 'users',
-        ],
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
+            'provider' => 'clinic_admins',
         ],
     ],
 
@@ -63,13 +59,9 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'clinic_admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\ClinicAdmin::class,
         ],
     ],
 
@@ -93,8 +85,8 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'clinic_admins' => [
+            'provider' => 'clinic_admins',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,

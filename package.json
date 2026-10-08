@@ -7,11 +7,9 @@
     "dev": "vite"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.0.0",
     "axios": "^1.11.0",
-    "concurrently": "^9.0.1",
+    "esbuild": "^0.25.11",
     "laravel-vite-plugin": "^2.0.0",
-    "tailwindcss": "^4.0.0",
     "vite": "^7.0.7"
   },
   "name": "my-project",
@@ -25,7 +23,6 @@
     "ansi-regex": "^5.0.1",
     "ansi-styles": "^4.3.0",
     "asynckit": "^0.4.0",
-    "bootstrap": "^5.3.8",
     "call-bind-apply-helpers": "^1.0.2",
     "chalk": "^4.1.2",
     "cliui": "^8.0.1",
@@ -41,7 +38,6 @@
     "es-errors": "^1.3.0",
     "es-object-atoms": "^1.1.1",
     "es-set-tostringtag": "^2.1.0",
-    "esbuild": "^0.25.11",
     "escalade": "^3.2.0",
     "fdir": "^6.5.0",
     "follow-redirects": "^1.15.11",
@@ -70,7 +66,6 @@
     "require-directory": "^2.1.1",
     "rollup": "^4.52.5",
     "rxjs": "^7.8.2",
-    "shell-quote": "^1.8.3",
     "source-map-js": "^1.2.1",
     "string-width": "^4.2.3",
     "strip-ansi": "^6.0.1",
@@ -87,5 +82,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "allowScripts": {
+    "esbuild@0.25.11": true
+  }
 }

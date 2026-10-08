@@ -1,0 +1,23 @@
+:root {
+    --clinic-logo-width: 155px;
+    --clinic-logo-height: 42px;
+}
+
+.topbar .brand {
+    gap: 18px;
+}
+
+.topbar .brand .brand-mark {
+    width: var(--clinic-logo-width) !important;
+    height: var(--clinic-logo-height) !important;
+    background: transparent;
+    border-radius: 0;
+    overflow: visible;
+}
+
+.topbar .brand .brand-logo {
+    display: block;
+    width: auto !important;
+    height: var(--clinic-logo-height) !important;
+    object-fit: contain;
+}
