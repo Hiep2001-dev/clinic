@@ -13,8 +13,9 @@ RUN npm run build
 # ==========================================
 FROM php:8.2-cli-alpine AS production-stage
 
-# Extensions cần cho Laravel (sqlite mặc định, thêm pdo_mysql nếu dùng MySQL)
-RUN apk add --no-cache curl git zip unzip sqlite-dev oniguruma-dev \
+# Extensions cần cho Laravel + ca-certificates cho SSL của Aiven MySQL
+RUN apk add --no-cache curl git zip unzip sqlite-dev oniguruma-dev ca-certificates \
+    && update-ca-certificates \
     && docker-php-ext-install pdo pdo_sqlite pdo_mysql mbstring bcmath
 
 # Cài Composer
@@ -31,9 +32,11 @@ COPY --from=build-stage /app/public/build /var/www/html/public/build
 # Cài đặt vendor PHP (production)
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
 
-# Tạo file DB sqlite + cấp quyền cho storage
+# Copy CA certificate của Aiven (Let's Encrypt ISRG Root X1) để dùng SSL
+COPY certs/aiven-ca.pem /var/www/html/certs/aiven-ca.pem
+
+# Tạo thư mục + cấp quyền cho storage/cache (DB là MySQL bên ngoài, không tạo sqlite)
 RUN mkdir -p storage/framework/{sessions,views,cache} storage/logs database \
-    && touch database/database.sqlite \
     && chown -R www-data:www-data storage bootstrap/cache database \
     && chmod -R 775 storage bootstrap/cache database
 

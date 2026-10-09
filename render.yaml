@@ -24,9 +24,19 @@ services:
       - key: LOG_LEVEL
         value: error
       - key: DB_CONNECTION
-        value: sqlite
+        value: mysql
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
       - key: DB_DATABASE
-        value: /var/www/html/database/database.sqlite
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: MYSQL_ATTR_SSL_CA
+        value: /var/www/html/certs/aiven-ca.pem
       - key: SESSION_DRIVER
         value: file
       - key: CACHE_STORE

@@ -59,8 +59,12 @@ return [
             'strict' => true,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
+                // Aiven yêu cầu SSL. Đặt MYSQL_ATTR_SSL_CA trỏ tới ca.pem của Aiven
+                // (hoặc bỏ trống nếu DB không dùng SSL).
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
+                // Cho phép tắt verify khi cần debug (mặc định bật trên production).
+                PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => env('MYSQL_ATTR_SSL_VERIFY_SERVER_CERT', true),
+            ], fn ($value) => $value !== null) : [],
         ],
 
         'mariadb' => [

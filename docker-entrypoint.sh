@@ -28,13 +28,13 @@ mkdir -p \
 export SESSION_DRIVER="${SESSION_DRIVER:-file}"
 export CACHE_STORE="${CACHE_STORE:-file}"
 
-# Tạo file sqlite nếu đang dùng sqlite và file chưa tồn tại
-if [ "${DB_CONNECTION:-sqlite}" = "sqlite" ]; then
-    DB_FILE="${DB_DATABASE:-database/database.sqlite}"
-    mkdir -p "$(dirname "$DB_FILE")"
-    [ -f "$DB_FILE" ] || touch "$DB_FILE"
-    DB_DATABASE="$DB_FILE"
-    export DB_DATABASE
+# Nếu dùng MySQL (Aiven) thì đảm bảo CA cert tồn tại và đường dẫn đúng
+if [ "${DB_CONNECTION:-mysql}" = "mysql" ]; then
+    if [ -z "${MYSQL_ATTR_SSL_CA:-}" ] && [ -f /var/www/html/certs/aiven-ca.pem ]; then
+        MYSQL_ATTR_SSL_CA=/var/www/html/certs/aiven-ca.pem
+        export MYSQL_ATTR_SSL_CA
+        echo "==> Dùng CA cert mặc định: ${MYSQL_ATTR_SSL_CA}"
+    fi
 fi
 
 chown -R www-data:www-data storage bootstrap/cache database 2>/dev/null || true
