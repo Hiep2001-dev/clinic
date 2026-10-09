@@ -1,6 +1,35 @@
+# Dependencies — cài lại trong image
 node_modules
+vendor
+
+# Build output — sinh ra ở stage 1
+public/build
+public/hot
 dist
+build
+
+# Git & CI
 .git
 .gitignore
+.github
+
+# Local env / logs / db — dùng qua biến môi trường Render
+.env
+.env.*
+!.env.example
+storage/logs/*
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/views/*
+database/*.sqlite
+
+# Docker files (không cần copy vào image)
 Dockerfile
+dockerfile
+docker-compose.yml
+.dockerignore
+
+# Docs & misc
 README.md
+*.md
+.phpunit.result.cache

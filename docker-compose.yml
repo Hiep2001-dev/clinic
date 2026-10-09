@@ -1,11 +1,16 @@
 version: '3.8'
 
 services:
-  vue-app:
+  app:
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: vue_frontend
+      dockerfile: dockerfile
+    container_name: laravel_app
     restart: always
     ports:
-      - "8080:80"
+      - "8080:8080"
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_CONNECTION=sqlite
+      - PORT=8080
