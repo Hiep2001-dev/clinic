@@ -37,6 +37,10 @@ services:
         sync: false
       - key: MYSQL_ATTR_SSL_CA
         value: /var/www/html/certs/aiven-ca.pem
+      # Tạm bỏ verify vì CA cert ISRG Root X1 không khớp Aiven.
+      # Thay bằng ca.pem thật của Aiven rồi đặt giá trị này thành "true".
+      - key: MYSQL_ATTR_SSL_VERIFY_SERVER_CERT
+        value: "false"
       - key: SESSION_DRIVER
         value: file
       - key: CACHE_STORE
